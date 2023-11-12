@@ -1,0 +1,445 @@
+[data-theme="default"] {
+    /* Base theme styles */
+
+    @font-face {
+        font-family: 'Flavors';
+        src: url('fonts/Flavors-Regular.ttf') format('truetype');
+    }
+
+    @font-face {
+        font-family: 'Finger Paint';
+        src: url('fonts/FingerPaint-Regular.ttf') format('truetype');
+    }
+
+    font-family: 'Finger Paint', cursive;
+    text-align: center;
+    margin: 0;
+
+
+    footer {
+        display: none;
+    }
+
+    #themeSwitcher {
+        color: gray;
+        font-size: 0.8em;
+        font-weight: 100;
+        width: 300px;
+        text-align: left;
+        padding-left: 10px;
+        cursor: pointer;
+    }
+
+    h1 {
+        font-family: 'Flavors', cursive;
+        font-size: 6em;
+        font-weight: 100;
+        margin-top: .1em;
+        margin-bottom: .1em;
+    }
+
+    /* Minesweeper table */
+    #grille {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    table {
+        align-self: center;
+    }
+
+    tr,
+    th,
+    td,
+    table {
+        border-collapse: collapse;
+        border-spacing: 0px;
+        padding: 0px;
+    }
+
+    #text {
+        display: none;
+    }
+
+    #timer {
+        display: block;
+        font-size: 2em;
+    }
+
+    td {
+        margin: none;
+        width: 20px;
+        height: 20px;
+
+        background-image: url(img/basic/normal.png);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        background-attachment: none !important;
+        border-collapse: collapse;
+        transition: 0.2s;
+
+        cursor: pointer;
+    }
+
+    td:hover {
+        transform: scale(1.2);
+    }
+
+    /* Classes of the table cells */
+
+    .empty {
+        background-image: url(img/basic/empty.png);
+    }
+
+    .flag {
+        background-image: url(img/basic/flag.png);
+    }
+
+    .bomb {
+        background-image: url(img/basic/bomb.png);
+    }
+
+    .bombDiscovered {
+        background-image: url(img/basic/bombDiscovered.png);
+    }
+
+    .one {
+        background-image: url(img/basic/1.png);
+    }
+
+    .two {
+        background-image: url(img/basic/2.png);
+    }
+
+    .three {
+        background-image: url(img/basic/3.png);
+    }
+
+    .four {
+        background-image: url(img/basic/4.png);
+    }
+
+    .five {
+        background-image: url(img/basic/5.png);
+    }
+
+    .six {
+        background-image: url(img/basic/6.png);
+    }
+
+    .seven {
+        background-image: url(img/basic/7.png);
+    }
+
+    .eight {
+        background-image: url(img/xp/8.png);
+    }
+
+}
+
+[data-theme="xp"] {
+
+    /* XP theme styles */
+    @font-face {
+        font-family: 'Display';
+        src: url('fonts/display.ttf') format('truetype');
+    }
+
+    background: url(img/xp/background.jpg), linear-gradient(#8db5f4, #779a25);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+
+    padding: none;
+    margin: 0;
+    text-align: center;
+    vertical-align: center;
+
+    font-family: Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1em;
+
+    #themeSwitcher {
+        color: white;
+        text-shadow: 1px 1px #000;
+        font-size: 0.8em;
+        font-weight: 100;
+        width: 70px;
+        text-align: center;
+        padding-left: 10px;
+        cursor: pointer;
+    }
+
+    #themeSwitcher::before {
+        content: url(img/xp/theme.png);
+        margin: 0 auto;
+    }
+
+    /* on masque le titre */
+    h1 {
+        display: none;
+    }
+
+    /* barre windows en bas */
+    footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-image: url(img/xp/taskbarBg.png);
+        margin: 0;
+        height: 30px;
+        text-align: left;
+    }
+
+    footer img {
+        height: 100%;
+        width: auto;
+        margin: 0;
+    }
+
+    #conteneurDemineur {
+        overflow: hidden;
+
+        display: inline-block;
+        width: fit-content;
+        min-width: 300px;
+
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        /* bring your own prefixes */
+        transform: translate(-50%, -50%);
+
+        border-color: #2d5ccc;
+        border-style: solid;
+        border-width: 3px;
+        border-radius: 0.5em;
+
+        background-color: #c0c0c0;
+    }
+
+    #conteneurDemineur:before {
+        display: inline-block;
+        background-color: #2d5ccc;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: 98%;
+
+        background: url(img/xp/windowButtons.png), #2d5ccc;
+        background-repeat: no-repeat, repeat;
+        background-position: 98%, 200%;
+
+        height: 21px;
+        width: 100%;
+
+        border-color: #2d5ccc;
+        border-style: solid;
+        color: #fff;
+
+        content: "💣 Démineur";
+        text-align: left;
+    }
+
+    #interface {
+        background-color: #f4f3ee;
+        height: 30px;
+        overflow: hidden;
+        vertical-align: middle;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Menu de sélection de difficulté*/
+    #selectionDifficulte {
+        display: inline-block;
+
+        font-family: Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1;
+
+        padding: .5em .1em .5em .2em;
+        margin: 0.5em;
+
+        width: 22em;
+        box-sizing: border-box;
+        border: 1px solid #b9c8d4;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+
+        background-color: #fff;
+        background: url(img/xp/dropdown.png), #ffffff;
+        background-repeat: no-repeat, repeat;
+        background-position: right 0.3em top 50%, 0 0;
+        background-size: 1.5em auto, 100%;
+    }
+
+    #selectionDifficulte::-ms-expand {
+        display: none;
+    }
+
+    #selectionDifficulte:focus {
+        background-color: #316ac5;
+        color: white;
+        outline: none;
+    }
+
+    #selectionDifficulte option {
+        background-color: white;
+        color: black;
+        font-weight: normal;
+    }
+
+    /* bouton pour commencer une partie*/
+    button {
+        display: inline-block;
+
+        font-family: Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1;
+
+        padding: .5em .1em .5em .2em;
+        min-width: 4em;
+        margin: 0.5em;
+        box-sizing: border-box;
+
+        border: 1px solid #3a4f62;
+        border-radius: .5em;
+
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+
+        background-image: linear-gradient(#fcfcfa, #d2c9bd);
+    }
+
+    button:hover {
+        -webkit-box-shadow: inset 0px 0px 0px 2px #ffd077;
+        -moz-box-shadow: inset 0px 0px 0px 2px #ffd077;
+        box-shadow: inset 0px 0px 0px 2px #ffd077;
+    }
+
+    button:focus {
+        -webkit-box-shadow: inset 0px 0px 0px 2px #b2c8de;
+        -moz-box-shadow: inset 0px 0px 0px 2px #b2c8de;
+        box-shadow: inset 0px 0px 0px 2px #b2c8de;
+    }
+
+    button:active {
+        -webkit-box-shadow: inset 0px 0px 0px 2px #a1a1a1;
+        -moz-box-shadow: inset 0px 0px 0px 2px #a1a1a1;
+        box-shadow: inset 0px 0px 0px 2px #a1a1a1;
+    }
+
+    /* timer */
+    #timer {
+        display: inline-block;
+        background-color: black;
+
+        padding: 0.2em;
+        padding-bottom: 0.4em;
+        margin-left: auto;
+        width: 60px;
+
+        line-height: 1.4;
+        font-size: 2em;
+        font-family: Display, monospace;
+        color: red;
+        text-align: center;
+    }
+
+    /* div contenant le table */
+    #grille {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    table {
+        align-self: center;
+    }
+
+    tr,
+    th,
+    td,
+    table {
+        border-collapse: collapse;
+        border-spacing: 0px;
+        padding: 0px;
+    }
+
+    table #text {
+        display: none;
+    }
+
+    td {
+        margin: none;
+        width: 16px;
+        height: 16px;
+
+        background-image: url(img/xp/normal.png);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: none !important;
+        background-size: cover;
+        border-collapse: collapse;
+
+        cursor: pointer;
+    }
+
+    /* Classes des cases du tableau */
+
+    .empty {
+        background-image: url(img/xp/empty.png);
+    }
+
+    .flag {
+        background-image: url(img/xp/flag.png);
+    }
+
+    .bomb {
+        background-image: url(img/xp/bomb.png);
+    }
+
+    .bombDiscovered {
+        background-image: url(img/xp/bombDiscovered.png);
+    }
+
+    .empty {
+        background-image: url(img/xp/empty.png);
+    }
+
+    .one {
+        background-image: url(img/xp/1.png);
+    }
+
+    .two {
+        background-image: url(img/xp/2.png);
+    }
+
+    .three {
+        background-image: url(img/xp/3.png);
+    }
+
+    .four {
+        background-image: url(img/xp/4.png);
+    }
+
+    .five {
+        background-image: url(img/xp/5.png);
+    }
+
+    .six {
+        background-image: url(img/xp/6.png);
+    }
+
+    .seven {
+        background-image: url(img/xp/7.png);
+    }
+
+    .eight {
+        background-image: url(img/xp/8.png);
+    }
+
+}
