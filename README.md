@@ -2,7 +2,7 @@
 
 Port of [maxencelav/itesciaMinesweeper](https://github.com/maxencelav/itesciaMinesweeper) to Vite, to ensure my old code still runs somewhere!
 
-Viewable at [https://maxencelav.github.io/minesweeper/](https://maxencelav.github.io/minesweeper/)!
+Viewable at [https://maxencelav.github.io/minesweeper/](https://maxencelav.github.io/minesweeper/).
 
 Some edits have been made to the original code, such as:
 
@@ -12,5 +12,5 @@ Some edits have been made to the original code, such as:
 - better accessibility on the theme switcher,
 - the third-party libraries used.
 
-> [!INFO]
+> [!NOTE]
 > You can check the changes I made by looking at the `2023 ADDITION` comments in the code.
