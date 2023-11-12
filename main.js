@@ -1,4 +1,6 @@
 import './style.less'
+// 2023 ADDITION: we import the confetti.js library
+import JSConfetti from 'js-confetti'
 
 var getUrlParameter = function getUrlParameter(sParam) {
   var sPageURL = window.location.search.substring(1),
@@ -22,6 +24,9 @@ if (getUrlParameter('theme') == "xp") { // if the chosen theme is xp
   // 2023 ADDITION: we add a data-theme attribute to the body
   document.body.setAttribute('data-theme', 'default');
 }
+
+// 2023 ADDITION: we create a new confetti object
+const jsConfetti = new JSConfetti()
 
 var timerTexte = document.getElementById('timer'),
   grille = document.getElementById("tableGrille"),
@@ -167,6 +172,11 @@ function genererGrille(value) {
 
           alert("GAME OVER") // we display the game over message
 
+          // 2023 ADDITION: we launch the confetti
+          jsConfetti.addConfetti({
+            emojis: ['💥','💣']
+          })
+
         } else if (this.className == undefined || this.className == '') {
           // if the cell hasn't been clicked yet
 
@@ -226,7 +236,7 @@ function nouvellePartie() {
   // launching the timer
   chronoStart();
   // 2023 ADDITION: switching the confetti.js library to a new one
-  // confetti.stop(); 
+  jsConfetti.clearCanvas()
 
   genererGrille(document.getElementById("selectionDifficulte").value);
 }
@@ -330,7 +340,8 @@ function FinDePartie() {
     td.parentNode.replaceChild(td.cloneNode(true), td);
   }); 
   
-  //confetti.start() // we launch the confetti
+  // 2023 ADDITION: we launch the confetti
+  jsConfetti.addConfetti()
   alert("Victoire !") // we display the victory message
 }
 
