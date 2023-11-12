@@ -47,34 +47,35 @@ var timerTexte = document.getElementById('timer'),
 // 2023 ADDITION: we add a data-theme attribute to the body
 function switchTheme() {
   console.log("switching theme")
-  let origin = window.location.href.split('?')[0]; //récupère le site ou on est (blabla.com)
+  let origin = window.location.href.split('?')[0]; // gets the website URL without the parameters
   console.log(origin)
-  let theme = getUrlParameter('theme'); //on récupère la variable dans l'url (/?theme=xxx)
+  let theme = getUrlParameter('theme'); // grabs the theme variable in the URL
 
-  if (theme == "xp") { //si on a indiqué qu'on voulait le thème xp
-    location.replace(origin) //on recharge la page sans thème
+  if (theme == "xp") { // if we were on the xp theme
+    location.replace(origin) // we reload the page with the default theme
   } else {
-    location.replace(origin + "?theme=xp") // on recharge la page avec thème
+    location.replace(origin + "?theme=xp") // we reload the page with the xp theme
   }
 }
-document.getElementById("themeSwitcher").onclick = switchTheme; // on ajoute la fonction au bouton
+// 2023 ADDITION: we bind the function to the button instead of using onclick in HTML
+document.getElementById("themeSwitcher").onclick = switchTheme;
 
 
 function ajoutTemps() {
 
-  secondes += 1; // on ajoute une seconde
+  secondes += 1; // we add one second to the counter
 
-  if (secondes >= 60) { // si on a 60 secondes
-    secondes = 0; // on les remet à 0
-    minutes++; //et on ajoute une minute
+  if (secondes >= 60) { // if we reach 60 seconds
+    secondes = 0; // we reset the seconds
+    minutes++; // and we add one minute to the counter
   }
 
   let timestamp = String(minutes).padStart(2, '0') + ":" + String(secondes).padStart(2, '0');
-  // on force le texte à avoir deux chiffres minimum
+  // we force the text to be 2 characters long and we add a 0 if it's not the case
 
-  timerTexte.textContent = timestamp //on met le texte dans la balise timer
+  timerTexte.textContent = timestamp // we put the text in the timer div
 
-  attente(); // on attend une seconde
+  attente(); // and then we wait one second
 }
 
 function attente() {
@@ -83,8 +84,8 @@ function attente() {
 }
 
 function chronoStart() {
-  clearInterval(timer); // on arrête l'attente
-  attente(); // on lance l'attente
+  clearInterval(timer); // we stop the timer
+  attente(); // we start it again from 0
 }
 
 function genererGrille(value) {
@@ -93,7 +94,7 @@ function genererGrille(value) {
   taille = 0; // we put the variables back to 0
 
   switch (value) {
-    // on met en place la largeur/hauteur selon la difficulté
+    // we set the size of the grid according to the difficulty
     case '0':
       console.log("debutant");
       taille = 9;
@@ -121,37 +122,37 @@ function genererGrille(value) {
 
   }
 
-  //vidage de la table
-  while (grille.firstChild) { // tant que y'a des trucs dans la grille
+  // we empty the grid
+  while (grille.firstChild) { // while there's stuff in the grid
     grille.removeChild(grille.firstChild)
-    //on retire tous les éléments dans #grille
+    // we remove all elements in the grid
   }
 
 
   for (var i = 0; i < taille; i++) {
-    // pour chaque ligne
-    let row = grille.insertRow(i); //on insère une ligne en HTML
+    // for each line
+    let row = grille.insertRow(i); // we insert a line in HTML
     for (var j = 0; j < taille; j++) {
-      //pour chaque colonne
+      // for each column
       let cell = row.insertCell(j);
-      //on insère une colonne en HTML et donc une case
+      // we insert a cell in HTML, thus creating a cell in the grid
 
-      nombreCases++; //on augemente le nombre de cases
+      nombreCases++; // we add one to the number of cells
 
       var mine = document.createAttribute("possedeMine");
-      // on crée un attribut "possedemine"
-      mine.value = "false"; // faux par défaut 
-      cell.setAttributeNode(mine); // et on l'ajoute à la case
+      // we create the attribute "possedeMine" (hasMine)
+      mine.value = "false"; // false by default
+      cell.setAttributeNode(mine); // and we add it to the cell
 
 
-      var mine = document.createAttribute("id"); //on crée l'id de la case 
+      var mine = document.createAttribute("id"); // we create the cell id
       mine.value = i + "." + j;
-      // sous le format #bouton[ligne].[colonne]
-      // 1re ligne/case = 0, pas 1
-      cell.setAttributeNode(mine); // on l'ajoute à la case
+      // under the "x.y" format, with x being the line and y the column
+      // the first cell is 0.0, the second 0.1, etc.
+      cell.setAttributeNode(mine); // we add it to the cell
 
 
-      //Si on clique sur une case
+      // if we click on a cell
       cell.onclick = function (e, type = "normal") {
         console.log("Work on " + this.id)
         console.log("mine? " + this.getAttribute('possedemine'));
@@ -161,22 +162,21 @@ function genererGrille(value) {
           // we don't do anything if the cell is flagged
         } else if (this.getAttribute('possedemine') == "true" && type != "sim") { // If the cell is a bomb
        
-          gameOver(); // on affiche les bombes 
+          gameOver(); // we display the bombs
           this.className = "bombDiscovered"; // we put the clicked bomb in red
 
-          alert("GAME OVER") // on affiche GAME OVER
+          alert("GAME OVER") // we display the game over message
 
         } else if (this.className == undefined || this.className == '') {
-          //si la case n'a pas déja été cliquée
+          // if the cell hasn't been clicked yet
 
           let classeBouton = bombesAdjacentes(this.id.split("."))
-          // on récupère le nombre de cases adjacentes
-          this.classList.add(classeBouton); // on ajoute la classe "clicked" à la case
+          // we get the nubmer of adjacent bombs
+          this.classList.add(classeBouton); // we add the clicked class to the cell
 
-          // et on l'assigne à la case
-
-          if (classeBouton == "empty") { // si la case est vide
-            //on révèle les cases autour car ce n'est pas des bombes 
+          // if the cell is empty
+          if (classeBouton == "empty") { // if the cell is empty
+            // we simulate a click on all adjacent cells via recursion
 
             let ligne = parseInt(this.id.split(".")[0], 10);
             let colonne = parseInt(this.id.split(".")[1], 10);
@@ -185,35 +185,35 @@ function genererGrille(value) {
 
             for (var i = Math.max(ligne - 1, 0); i <= Math.min(ligne + 1, taille - 1); i++) {
               for (var j = Math.max(colonne - 1, 0); j <= Math.min(colonne + 1, taille - 1); j++) {
-                //pour chaque case autour
+                // for each adjacent cell
                 console.log("Simulation de clic sur #" + i + '.' + j)
                 console.log(document.getElementById(i + '.' + j).className)
 
                 var caseContour = document.getElementById(i + '.' + j);
                 if (typeof caseContour.onclick == "function") {
-                  // si il y a une fonction quand on clique dessus
-                  caseContour.onclick.apply(caseContour); // simul de clic
+                  // if the cell has an onclick function
+                  caseContour.onclick.apply(caseContour); // we simulate a click on it
                 }
               }
             }
           }
 
         }
-        FinDePartie(); // on regarde si la partie est gagnée
+        FinDePartie(); // we check if the user won
       };
 
 
-      //Si on clique droit sur une case
+      // if we right click on a cell
       cell.oncontextmenu = function () {
         console.log("clic droit de " + this.id)
         this.classList.toggle("flag");
-        // on lui toggle la class flag
-        // qui change l'image en drapeau si elle l'a pas (et inversement si elle l'a)
-        return false; // on désactive le menu de clic droit par défaut
+        // we toggle the flag class
+        // that will display a flag on the cell (and remove it if it's already there)
+        return false; // we prevent the default context menu from appearing
       };
     }
   }
-  ajouterMines(value, taille); // à la fin de la génération du tableau on ajoute les mines
+  ajouterMines(value, taille); // at the end of the grid generation, we add the bombs
 
 
 }
@@ -237,7 +237,7 @@ document.getElementById("commencerPartie").onclick = nouvellePartie;
 function ajouterMines(value, taille) {
   let nombreBombes = 0;
   switch (value) {
-    // on met en place le nombre de bombes selon la difficulté
+    // we set the number of bombs according to the difficulty
     case '0':
       nombreBombes = 10;
       break;
@@ -260,7 +260,7 @@ function ajouterMines(value, taille) {
 
   }
 
-  // pour le nombre de bombes
+  // for the number of bombs
   for (var i = 0; i < nombreBombes; i++) {
 
     do {
@@ -269,12 +269,11 @@ function ajouterMines(value, taille) {
     } while ((listeCasesMines.includes(row + "." + col)));
     listeCasesMines.push(row + "." + col);
 
-    // on génère des coordonnées aléatoires
+    // we get a random cell
 
     var cell = grille.rows[row].cells[col];
-    //console.log(cell);
     cell.setAttribute("possedeMine", "true");
-    //on met l'attribut "possedemine" a true pour cette case
+    // we set the cell as having a bomb
   }
 
   console.log(listeCasesMines);
@@ -289,9 +288,11 @@ function bombesAdjacentes(coordCellule) {
   let colonne = parseInt(coordCellule[1], 10);
   let compteurBombes = 0;
 
-  // pour les 8 cases autour de celle envoyées
-  // regarde l'attribut "possedemine"
-  // si "true", compteurBombes++;
+  /* 
+  for the 8 cells around the one sent
+  check the "possedemine" (hasMine) attribute
+  if "true", compteurBombes++;
+  */
 
   for (var i = Math.max(ligne - 1, 0); i <= Math.min(ligne + 1, taille - 1); i++) {
     for (var j = Math.max(colonne - 1, 0); j <= Math.min(colonne + 1, taille - 1); j++) {
@@ -304,7 +305,7 @@ function bombesAdjacentes(coordCellule) {
   //console.log(grille.rows[coordCellules[0]].cells[coordCellules[1]]);
 
   console.log("vérif bombesAdjacentes sur " + coordCellule + " " + compteurBombes + " bombes");
-  return classes[compteurBombes]; // return le nom de la classe correspondant au 
+  return classes[compteurBombes]; // return the class corresponding to the number of bombs
 }
 
 function FinDePartie() {
@@ -313,15 +314,15 @@ function FinDePartie() {
       if (grille.rows[i].cells[j].getAttribute('possedeMine') == "false") {
         if (!classes.includes(grille.rows[i].cells[j].className))
 
-          // si une seule case bombe a été cliquée
+          // if a single bombless cell hasn't been clicked yet
           return false;
       }
     }
   }
 
-  // si aucune case bombe n'a été cliquée
+  // if we reach this point, it means that all bombless cells have been clicked
 
-  clearInterval(timer); // on arrête l'attente
+  clearInterval(timer); // we stop the timer
 
   // we disable the click on the cells
   document.querySelectorAll('td').forEach(function(td) {
@@ -329,13 +330,13 @@ function FinDePartie() {
     td.parentNode.replaceChild(td.cloneNode(true), td);
   }); 
   
-  //confetti.start() // on lance les confettis
-  alert("Victoire !") // on affiche victoire
+  //confetti.start() // we launch the confetti
+  alert("Victoire !") // we display the victory message
 }
 
 function gameOver() {
   console.log("Game Over")
-  clearInterval(timer); // on arrête l'attente
+  clearInterval(timer); // we stop the timer
 
    // we disable the click on the cells
    document.querySelectorAll('td').forEach(function(td) {
@@ -345,9 +346,9 @@ function gameOver() {
 
   for (var i = 0; i <= (taille - 1); i++) {
     for (var j = 0; j <= (taille - 1); j++) {
-      if (grille.rows[i].cells[j].getAttribute('possedeMine') == "true") { // si c'est une bombe
+      if (grille.rows[i].cells[j].getAttribute('possedeMine') == "true") { // if the cell has a bomb
         let bombCell = grille.rows[i].cells[j];
-        bombCell.className = "bomb"; // on affiche les bombes
+        bombCell.className = "bomb"; // we display the bomb
       }
     }
   }
