@@ -21,13 +21,14 @@
     }
 
     #themeSwitcher {
-        color: gray;
-        font-size: 0.8em;
+        font-size: .8em;
         font-weight: 100;
-        width: 300px;
-        text-align: left;
-        padding-left: 10px;
+        width: 15ch;
+        padding-left: 0;
         cursor: pointer;
+        display: flex;
+        text-align: center;
+        margin: 1em;
     }
 
     h1 {
@@ -164,17 +165,35 @@
     #themeSwitcher {
         color: white;
         text-shadow: 1px 1px #000;
+        background: transparent;
+        border: 1px dotted transparent;
+
         font-size: 0.8em;
         font-weight: 100;
         width: 70px;
         text-align: center;
-        padding-left: 10px;
         cursor: pointer;
+        margin: 1em;
+        border-radius: 0.25em;
+
+        display: flex;
+        flex-direction: column;
     }
 
     #themeSwitcher::before {
         content: url(/img/xp/theme.png);
         margin: 0 auto;
+    }
+
+    #themeSwitcher:hover {
+        background-color: rgba(255, 255, 255, 0.25);
+    }
+
+    #themeSwitcher:focus,
+    #themeSwitcher:active {
+        outline: none;
+        border-color: #fff;
+        background-color: rgba(255, 255, 255, 0.5);
     }
 
     /* on masque le titre */
@@ -293,7 +312,7 @@
     }
 
     /* bouton pour commencer une partie*/
-    button {
+    button:not(#themeSwitcher) {
         display: inline-block;
 
         font-family: Tahoma, Geneva, Verdana, sans-serif;
@@ -314,19 +333,19 @@
         background-image: linear-gradient(#fcfcfa, #d2c9bd);
     }
 
-    button:hover {
+    button:not(#themeSwitcher):hover {
         -webkit-box-shadow: inset 0px 0px 0px 2px #ffd077;
         -moz-box-shadow: inset 0px 0px 0px 2px #ffd077;
         box-shadow: inset 0px 0px 0px 2px #ffd077;
     }
 
-    button:focus {
+    button:not(#themeSwitcher):focus {
         -webkit-box-shadow: inset 0px 0px 0px 2px #b2c8de;
         -moz-box-shadow: inset 0px 0px 0px 2px #b2c8de;
         box-shadow: inset 0px 0px 0px 2px #b2c8de;
     }
 
-    button:active {
+    button:not(#themeSwitcher):active {
         -webkit-box-shadow: inset 0px 0px 0px 2px #a1a1a1;
         -moz-box-shadow: inset 0px 0px 0px 2px #a1a1a1;
         box-shadow: inset 0px 0px 0px 2px #a1a1a1;
